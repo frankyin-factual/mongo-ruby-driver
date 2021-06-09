@@ -1,7 +1,8 @@
 Gem::Specification.new do |s|
+  version = File.read(File.join(File.dirname(__FILE__), 'VERSION'))
   s.name              = 'mongo'
 
-  s.version           = File.read(File.join(File.dirname(__FILE__), 'VERSION'))
+  s.version           = "#{version}-fsq"
   s.platform          = Gem::Platform::RUBY
   s.authors           = ['Emily Stolfo', 'Durran Jordan', 'Gary Murakami', 'Tyler Brock', 'Brandon Black']
   s.email             = 'mongodb-dev@googlegroups.com'
@@ -27,5 +28,5 @@ Gem::Specification.new do |s|
   s.require_paths     = ['lib']
   s.has_rdoc          = 'yard'
 
-  s.add_dependency('bson', "#{s.version}")
+  s.add_dependency('bson', "#{version}")
 end
