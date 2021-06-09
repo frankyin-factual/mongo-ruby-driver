@@ -175,30 +175,38 @@ module Mongo
     # Connect to each member of the replica set
     # as reported by the given seed node.
     def connect_to_members
-      seed = get_valid_seed_node
-      seed.node_list.each do |host|
-        if existing = @members.detect {|node| node =~ host }
-          if existing.healthy?
-            # Refresh this node's configuration
-            existing.set_config
-            # If we are unhealthy after refreshing our config, drop from the set.
-            if !existing.healthy?
-              @members.delete(existing)
-            else
-              next
-            end
-          else
-            existing.close
-            @members.delete(existing)
-          end
+      if client.no_seed?
+        puts "here"
+        @seeds.each do |seed|
+          node = Mongo::Node.new(self.client, seed)
+          node.connect
+          @members << node if node.healthy?
         end
+      else
+        seed = get_valid_seed_node
+        seed.node_list.each do |host|
+          if existing = @members.detect {|node| node =~ host }
+            if existing.healthy?
+              # Refresh this node's configuration
+              existing.set_config
+              # If we are unhealthy after refreshing our config, drop from the set.
+              if !existing.healthy?
+                @members.delete(existing)
+              else
+                next
+              end
+            else
+              existing.close
+              @members.delete(existing)
+            end
+          end
 
-        node = Mongo::Node.new(self.client, host)
-        node.connect
-        @members << node if node.healthy?
+          node = Mongo::Node.new(self.client, host)
+          node.connect
+          @members << node if node.healthy?
+        end
+        seed.close
       end
-      seed.close
-
       if @members.empty?
         raise ConnectionFailure, "Failed to connect to any given member."
       end

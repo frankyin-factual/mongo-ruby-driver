@@ -49,7 +49,7 @@ module Mongo
     POOL_OPTS            = [:pool_size, :pool_timeout]
     READ_PREFERENCE_OPTS = [:read, :tag_sets, :secondary_acceptable_latency_ms]
     WRITE_CONCERN_OPTS   = [:w, :j, :fsync, :wtimeout]
-    CLIENT_ONLY_OPTS     = [:slave_ok]
+    CLIENT_ONLY_OPTS     = [:slave_ok, :no_seed]
 
     mongo_thread_local_accessor :connections
 
@@ -379,6 +379,10 @@ module Mongo
       @slave_ok
     end
 
+    def no_seed?
+      @no_seed
+    end
+
     def mongos?
       @mongos
     end
@@ -575,6 +579,7 @@ module Mongo
     # Parse option hash
     def setup(opts)
       @slave_ok = opts.delete(:slave_ok)
+      @no_seed = opts.delete(:no_seed)
       @ssl      = opts.delete(:ssl)
       @unix     = @host ? @host.end_with?('.sock') : false
 
