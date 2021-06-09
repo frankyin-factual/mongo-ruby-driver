@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  version = File.read(File.join(File.dirname(__FILE__), 'VERSION'))
+  version = File.read(File.join(File.dirname(__FILE__), 'VERSION')).rstrip
   s.name              = 'mongo'
 
   s.version           = "#{version}-fsq"
