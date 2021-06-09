@@ -176,7 +176,6 @@ module Mongo
     # as reported by the given seed node.
     def connect_to_members
       if client.no_seed?
-        puts "here"
         @seeds.each do |seed|
           node = Mongo::Node.new(self.client, seed)
           node.connect

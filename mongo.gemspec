@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   version = File.read(File.join(File.dirname(__FILE__), 'VERSION')).rstrip
   s.name              = 'mongo'
 
-  s.version           = "#{version}-fsq"
+  s.version           = "#{version}.1"
   s.platform          = Gem::Platform::RUBY
   s.authors           = ['Emily Stolfo', 'Durran Jordan', 'Gary Murakami', 'Tyler Brock', 'Brandon Black']
   s.email             = 'mongodb-dev@googlegroups.com'
