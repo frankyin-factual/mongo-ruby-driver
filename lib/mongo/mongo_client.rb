@@ -43,13 +43,13 @@ module Mongo
     DEFAULT_PORT         = 27017
     DEFAULT_DB_NAME      = 'test'
     DEFAULT_OP_TIMEOUT   = 20
-    GENERIC_OPTS         = [:auths, :logger, :connect, :db_name]
+    GENERIC_OPTS         = [:auths, :logger, :connect, :db_name, :no_seed]
     TIMEOUT_OPTS         = [:timeout, :op_timeout, :connect_timeout]
     SSL_OPTS             = [:ssl, :ssl_key, :ssl_cert, :ssl_verify, :ssl_ca_cert, :ssl_key_pass_phrase]
     POOL_OPTS            = [:pool_size, :pool_timeout]
     READ_PREFERENCE_OPTS = [:read, :tag_sets, :secondary_acceptable_latency_ms]
     WRITE_CONCERN_OPTS   = [:w, :j, :fsync, :wtimeout]
-    CLIENT_ONLY_OPTS     = [:slave_ok, :no_seed]
+    CLIENT_ONLY_OPTS     = [:slave_ok]
 
     mongo_thread_local_accessor :connections
 
